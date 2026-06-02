@@ -1,9 +1,9 @@
 class Empleado{
 
-    constructor(nombre,cargo,salario){
+    constructor(nombre,salario,cargo){
         this.nombre = nombre;
-        this.cargo = cargo;
         this.salario = salario;
+        this.cargo = cargo;
         this.activo = true;
     }
 
@@ -26,13 +26,14 @@ class Empleado{
             Nombre: ${this.nombre}
             Cargo: ${this.cargo}
             Salario mensual: ${this.salario}
-            Activo: ${this.activo}`);
+            Activo: ${this.activo}
+            `);
     }
 }
 
-let empleado1 = new Empleado("Carlos","Programador Junior",2700000)
-let empleado2 = new Empleado("Juan","Asistente",2000000)
-let empleado3 = new Empleado("Maria","Desarrolladora Senior",8000000)
+let empleado1 = new Empleado("Carlos",2700000,"Programador Junior")
+let empleado2 = new Empleado("Juan",2000000,"Asistente")
+let empleado3 = new Empleado("Maria",8000000,"Desarrolladora Senior")
 
 empleado1.presentarse();
 empleado3.calcularSalarioAnual();
@@ -44,21 +45,34 @@ empleado2.info();
 class Lider extends Empleado{
 
     constructor(nombre,salario,equipo){
-        this.nombre = nombre;
-        this.salario = salario;
+        super(nombre,salario);
         this.equipo = equipo;
         this.cargo = "Lider de equipo";
     }
 
     presentarEquipo(){
-        let nombresEquipo = [];
+        return this.equipo.join(", ")  
     }
 
-    agregarMiembro(nombre){
-        nombresEquipo.push(this.nombre);
+    agregarMiembro(nombreEmpleado){
+        this.equipo.push(nombreEmpleado);
+        console.log("Se agrego a "+nombreEmpleado+" como nuev@ miembro del equipo.");
     }
 
     info(){
-
+        super.info()
+        console.log("En el equipo actualmente hay "+this.equipo.length+" miembros.");        
     }
 }
+
+//Empleados:
+const lider1 = new Lider("Sebastian",10000000,["Maria","Juan","Carlos"])
+const lider2 = new Lider("Eduardo",12500000,["Camilo","Andrea","Erika"])
+
+lider1.calcularSalarioAnual();
+lider2.desactivar();
+lider2.info();
+
+console.log(lider1.presentarEquipo());
+lider1.agregarMiembro("Jessica");
+console.log(lider1.presentarEquipo());
